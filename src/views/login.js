@@ -12,12 +12,16 @@ function Login() {
       console.log('senha',senha)
   }
 
+  const cadastrar = () =>{
+    console.log("cadastro")
+}
+
   return (
     <div className="container">
       <div className="row">
         <div
           className="col-md-6"
-          style={{ position: "relative", left: "300px" }}
+          style={{ position: "relative", left: "300px"}}
         >
           <div className="bs-docs-section"> 
             <Card title="Login">
@@ -25,7 +29,7 @@ function Login() {
                 <div className="col-lg-12">
                   <div className="bs-component">
                     <fieldset>
-                      <Formgroup label="Email: *" htmlFor="exampleInputEmail1">
+                      <Formgroup label="Email: *" htmlFor="exampleInputEmail1" >
                         <input
                           type="email"
                           value={email}
@@ -46,10 +50,10 @@ function Login() {
                           placeholder="Digite sua senha"
                         ></input>
                       </Formgroup>
-                      <button onClick={entrar} className="btn btn-success">
+                      <button onClick={entrar} className="btn btn-success my-3" >
                         Entrar
                       </button>
-                      <button className="btn btn-danger ">
+                      <button onClick={cadastrar} className="btn btn-danger my-3   mx-2" >
                         Cadastrar
                       </button>
                     </fieldset>
