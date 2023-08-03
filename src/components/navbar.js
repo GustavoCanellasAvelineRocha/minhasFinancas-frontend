@@ -1,51 +1,32 @@
 import React from "react";
+import NavbarItem from "./navbarItem";
 
 function Navbar() {
   return (
-    <div
-      className="navbar navbar-expand-lg fixed-top navbar-dark bg-primary"
-    >
-      <div className="container">
-        <a href="https://bootswatch.com/" className="navbar-brand">
-          Minhas Finanças
-        </a>
+    <nav className="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+      <div className="container-fluid">
+        <a className="navbar-brand" href="">Minhas financas</a>
         <button
           className="navbar-toggler"
           type="button"
-          data-toggle="collapse"
-          data-target="#navbarResponsive"
-          aria-controls="navbarResponsive"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarColor01"
+          aria-controls="navbarColor01"
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarResponsive">
-          <ul className="navbar-nav">
-            <li className="nav-item">
-              <a className="nav-link" href="home.html">
-                Home
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="usuarios.html">
-                Usuários
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="lancamentos.html">
-                Lançamentos
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="login.html">
-                Login
-              </a>
-            </li>
+        <div className="collapse navbar-collapse" id="navbarColor01">
+          <ul className="navbar-nav me-auto">
+            <NavbarItem href="/home" label= "Home"></NavbarItem>
+            <NavbarItem href="/login" label= "Login"></NavbarItem>
+            <NavbarItem href="/cadastro-usuarios" label= "Cadastro"></NavbarItem>
+            <NavbarItem href="/lancamentos" label= "Lancamentos"></NavbarItem>
           </ul>
         </div>
       </div>
-    </div>
+    </nav>
   );
 }
 

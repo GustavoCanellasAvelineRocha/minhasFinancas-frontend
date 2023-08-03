@@ -1,17 +1,18 @@
 import React from "react";
 import Rotas from "./rotas";
-import Navbar from "../components/navbar";  
+import Navbar from "../components/navbar";
 
-import "bootswatch/dist/zephyr/bootstrap.css";
+import "bootswatch/dist/pulse/bootstrap.css";
 import "../custom.css";
 
 function App() {
   return (
-    <Navbar>
-    <div className="container">
-      <Rotas></Rotas>
-    </div>
-    </Navbar>
+    <>
+      <Navbar></Navbar>
+      <div className="container mt-5">
+        <Rotas></Rotas>
+      </div>
+    </>
   );
 }
 

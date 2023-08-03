@@ -1,71 +1,82 @@
 import React, { useState } from "react";
+import FormLabel from "../components/formLabel";
 import Card from "../components/card";
-import Formgroup from "../components/formgroup";
+import FormButtonGroup from "../components/formButtonGroup";
 
 function Login() {
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
 
-  const [email,setEmail] = useState("");
-  const [senha,setSenha] = useState("");
+  const entrar = () => {
+    console.log("email", email);
+    console.log("senha", senha);
+  };
 
-  const entrar = () =>{
-      console.log('email',email)
-      console.log('senha',senha)
-  }
-
-  const cadastrar = () =>{
-    console.log("cadastro")
-}
+  const cadastrar = () => {
+    
+  };
 
   return (
-    <div className="container">
-      <div className="row">
-        <div
-          className="col-md-6"
-          style={{ position: "relative", left: "300px"}}
-        >
-          <div className="bs-docs-section"> 
-            <Card title="Login">
-              <div className="row">
-                <div className="col-lg-12">
-                  <div className="bs-component">
+    <div className="row">
+      <div className="col-md-6" style={{ position: "relative", left: "300px" }}>
+        <div className="bs-docs-section">
+          <Card title="Login">
+            <div className="row">
+              <div className="col-lg-12">
+                <div className="bs-component">
+                  <form>
                     <fieldset>
-                      <Formgroup label="Email: *" htmlFor="exampleInputEmail1" >
+                      <FormLabel htmlFor="exampleInputEmail1" label="Email: *">
                         <input
                           type="email"
-                          value={email}
-                          onChange={e=> setEmail(e.target.value)}
-                          class="form-control"
+                          className="form-control"
                           id="exampleInputEmail1"
                           aria-describedby="emailHelp"
-                          placeholder="Digite seu email"
-                        ></input>
-                      </Formgroup>
-                      <Formgroup label="Senha: *" htmlFor="">
+                          placeholder="Digite o Email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                        />
+                      </FormLabel>
+                      <FormLabel
+                        htmlFor="exampleInputPassword1"
+                        label="Senha: *"
+                      >
                         <input
                           type="password"
-                          value={senha}
-                          onChange={e=> setSenha(e.target.value)}
-                          class="form-control"
+                          className="form-control"
                           id="exampleInputPassword1"
-                          placeholder="Digite sua senha"
-                        ></input>
-                      </Formgroup>
-                      <button onClick={entrar} className="btn btn-success my-3" >
-                        Entrar
-                      </button>
-                      <button onClick={cadastrar} className="btn btn-danger my-3   mx-2" >
-                        Cadastrar
-                      </button>
+                          placeholder="Password"
+                          value={senha}
+                          onChange={(e) => setSenha(e.target.value)}
+                        />
+                      </FormLabel>
+
+                      <FormButtonGroup>
+                        <button
+                          type="button"
+                          className="btn btn-success"
+                          onClick={entrar}
+                        >
+                          Entrar
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-danger"
+                          onClick={cadastrar}
+                        >
+                          Cadastrar
+                        </button>
+                      </FormButtonGroup>
                     </fieldset>
-                  </div>
+                  </form>
                 </div>
               </div>
-            </Card>
-          </div>
+            </div>
+          </Card>
         </div>
       </div>
     </div>
   );
 }
 
-export default Login;
+export default Login ;
