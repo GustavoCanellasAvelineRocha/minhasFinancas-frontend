@@ -10,6 +10,7 @@ function App() {
     <>
       <Navbar></Navbar>
       <div className="container mt-5">
+        
         <Rotas></Rotas>
       </div>
     </>

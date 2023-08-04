@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
 import Card from "../components/card";
-import Formgroup from "../components/formLabel";
+import FormLabel from "../components/formLabel";
+import FormButtonGroup from "../components/formButtonGroup";
 
 function CadastroUsuario() {
   const [usuario, setUsuario] = useState({
@@ -52,66 +53,62 @@ function CadastroUsuario() {
 
   return (
     <div className="row">
-      <div className="col-md-6" style={{ position: "relative", left: "300px" }}>
+      <div className="col-lg-12">
         <Card title="Cadastro de usuario ">
-          <div className="col-lg-12">
-            <div className="bs-component">
-              <Formgroup label="Nome: *" htmlFor="inputNome">
-                <input
-                  type="text"
-                  id="inputNome"
-                  name="nome"
-                  value={usuario.nome}
-                  className="form-control"
-                  onChange={(e) => setNome(e.target.value)}
-                ></input>
-              </Formgroup>
-              <Formgroup label="Email *" htmlFor="inputEmail">
-                <input
-                  type="email"
-                  id="inputEmail"
-                  name="email"
-                  value={usuario.email}
-                  className="form-control"
-                  onChange={(e) => setEmail(e.target.value)}
-                ></input>
-              </Formgroup>
-              <Formgroup label="Senha *" htmlFor="inputSenha">
-                <input
-                  type="senha"
-                  id="inputSenha"
-                  name="senha"
-                  value={usuario.senha}
-                  className="form-control"
-                  onChange={(e) => setSenha(e.target.value)}
-                ></input>
-              </Formgroup>
-              <Formgroup
-                label="Repita Sua Senha *"
-                htmlFor="inputSenhaRepetida"
+          <div className="bs-component">
+            <FormLabel label="Nome: *" htmlFor="inputNome">
+              <input
+                type="text"
+                id="inputNome"
+                name="nome"
+                value={usuario.nome}
+                className="form-control"
+                onChange={(e) => setNome(e.target.value)}
+              ></input>
+            </FormLabel>
+            <FormLabel label="Email *" htmlFor="inputEmail">
+              <input
+                type="email"
+                id="inputEmail"
+                name="email"
+                value={usuario.email}
+                className="form-control"
+                onChange={(e) => setEmail(e.target.value)}
+              ></input>
+            </FormLabel>
+            <FormLabel label="Senha *" htmlFor="inputSenha">
+              <input
+                type="senha"
+                id="inputSenha"
+                name="senha"
+                value={usuario.senha}
+                className="form-control"
+                onChange={(e) => setSenha(e.target.value)}
+              ></input>
+            </FormLabel>
+            <FormLabel label="Repita Sua Senha *" htmlFor="inputSenhaRepetida">
+              <input
+                type="senhaRepetida *"
+                id="inputSenhaRepetida"
+                name="senhaRepetida"
+                value={usuario.senhaRepetida}
+                className="form-control"
+                onChange={(e) => setSenhaRepetida(e.target.value)}
+              ></input>
+            </FormLabel>
+
+            <FormButtonGroup>
+              <button
+                onClick={cadastrar}
+                type="button"
+                className="btn btn-success "
               >
-                <input
-                  type="senhaRepetida"
-                  id="inputSenhaRepetida"
-                  name="senhaRepetida"
-                  value={usuario.senhaRepetida}
-                  className="form-control"
-                  onChange={(e) => setSenhaRepetida(e.target.value)}
-                ></input>
-              </Formgroup>
-              <div>
-                <button
-                  onClick={cadastrar}
-                  type="button"
-                  className="btn btn-success my-3"
-                >
-                  Salvar
-                </button>
-                <button type="button" className="btn btn-danger mx-2 my-3">
-                  Cancelar
-                </button>
-              </div>
-            </div>
+                Salvar
+              </button>
+              <a type="button" className="btn btn-danger " href="/login">
+                Cancelar
+              </a>
+            </FormButtonGroup>
           </div>
         </Card>
       </div>

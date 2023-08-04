@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import FormLabel from "../components/formLabel";
 import Card from "../components/card";
 import FormButtonGroup from "../components/formButtonGroup";
+import { useHref } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -10,10 +11,6 @@ function Login() {
   const entrar = () => {
     console.log("email", email);
     console.log("senha", senha);
-  };
-
-  const cadastrar = () => {
-    
   };
 
   return (
@@ -59,13 +56,13 @@ function Login() {
                         >
                           Entrar
                         </button>
-                        <button
-                          type="button"
+                        <a
+                          role="button"
                           className="btn btn-danger"
-                          onClick={cadastrar}
+                          href="/cadastro-usuarios"
                         >
                           Cadastrar
-                        </button>
+                        </a>
                       </FormButtonGroup>
                     </fieldset>
                   </form>
@@ -79,4 +76,4 @@ function Login() {
   );
 }
 
-export default Login ;
+export default Login;
