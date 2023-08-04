@@ -6,7 +6,7 @@ function Navbar() {
     
       <nav className="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
         <div className="container">
-          <a className="navbar-brand" href="">
+          <a className="navbar-brand " href="/home">
             Minhas financas
           </a>
           <button
