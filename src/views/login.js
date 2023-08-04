@@ -3,13 +3,38 @@ import FormLabel from "../components/formLabel";
 import Card from "../components/card";
 import FormButtonGroup from "../components/formButtonGroup";
 
+import axios from "axios";
+
 function Login() {
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
+  const [usuario, setUsuario] = useState({
+    email: "",
+    senha: "",
+  });
+
+  const setEmail = (novoEmail) => {
+    setUsuario((prevState) => ({
+      ...prevState,
+      email: novoEmail,
+    }));
+  };
+
+  const setSenha = (novaSenha) => {
+    setUsuario((prevState) => ({
+      ...prevState,
+      senha: novaSenha,
+    }));
+  };
 
   const entrar = () => {
-    console.log("email", email);
-    console.log("senha", senha);
+    axios.post('http://localhost:8080/api/usuarios/autenticar',
+    {
+      email: usuario.email,
+      senha: usuario.senha
+    }).then(Response=>{
+      console.log(Response)
+    }).catch(error=>{
+      console.log(error)
+    })
   };
 
   return (
@@ -29,7 +54,7 @@ function Login() {
                           id="exampleInputEmail1"
                           aria-describedby="emailHelp"
                           placeholder="Digite o Email"
-                          value={email}
+                          value={usuario.email}
                           onChange={(e) => setEmail(e.target.value)}
                         />
                       </FormLabel>
@@ -42,7 +67,7 @@ function Login() {
                           className="form-control"
                           id="exampleInputPassword1"
                           placeholder="Password"
-                          value={senha}
+                          value={usuario.senha}
                           onChange={(e) => setSenha(e.target.value)}
                         />
                       </FormLabel>
