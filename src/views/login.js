@@ -2,14 +2,20 @@ import React, { useState } from "react";
 import FormLabel from "../components/formLabel";
 import Card from "../components/card";
 import FormButtonGroup from "../components/formButtonGroup";
+import { useNavigate } from "react-router-dom";
 
-import axios from "axios";
+import UsuarioService from "../app/usuarioService";
 
 function Login() {
+  const usuarioService = new UsuarioService();
+  const navigate = useNavigate();
+
   const [usuario, setUsuario] = useState({
     email: "",
     senha: "",
   });
+
+  const [msgErro, setMsgErro] = useState(null);
 
   const setEmail = (novoEmail) => {
     setUsuario((prevState) => ({
@@ -25,23 +31,34 @@ function Login() {
     }));
   };
 
-  const entrar = () => {
-    axios.post('http://localhost:8080/api/usuarios/autenticar',
-    {
-      email: usuario.email,
-      senha: usuario.senha
-    }).then(Response=>{
-      console.log(Response)
-    }).catch(error=>{
-      console.log(error)
-    })
+  const entrar = async () => {
+    usuarioService
+      .autenticar({
+        email: usuario.email,
+        senha: usuario.senha,
+      })
+      .then((response) => {
+        localStorage.setItem("usuario_logado", JSON.stringify(response.data));
+        localStorage.getItem("usuario_logado");
+        navigate("/home");
+      })
+      .catch((error) => {
+        setMsgErro(error.response.data);
+      });
+  };
+
+  const irParaCadastro = () => {
+    navigate("/cadastro-usuarios");
   };
 
   return (
     <div className="row">
-      <div className="col-md-6" style={{ position: "relative", left: "300px" }}>
+      <div className="col-md-6 loginResponsivo" >
         <div className="bs-docs-section">
           <Card title="Login">
+            <div className="row">
+              <span>{msgErro}</span>
+            </div>
             <div className="row">
               <div className="col-lg-12">
                 <div className="bs-component">
@@ -80,13 +97,13 @@ function Login() {
                         >
                           Entrar
                         </button>
-                        <a
-                          role="button"
+                        <button
+                          type="button"
                           className="btn btn-danger"
-                          href="/cadastro-usuarios"
+                          onClick={irParaCadastro}
                         >
                           Cadastrar
-                        </a>
+                        </button>
                       </FormButtonGroup>
                     </fieldset>
                   </form>

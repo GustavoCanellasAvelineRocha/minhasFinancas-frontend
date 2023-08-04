@@ -205,6 +205,10 @@ pre {
 .section-preview .lead {
   margin-bottom: 2em;
 }
+.loginResponsivo{
+  position: relative;
+  margin-left: 300px;
+}
 @media (max-width: 767px) {
   .section-preview .image img {
     width: 100%;
@@ -240,5 +244,11 @@ pre {
   #banner {
     margin-bottom: 2em;
     text-align: center;
+  }
+}
+@media (max-width: 1000px) {
+  .loginResponsivo{
+    position: absolute;
+    margin-left: 0;
   }
 }
