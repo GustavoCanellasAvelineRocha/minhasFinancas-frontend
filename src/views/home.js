@@ -7,18 +7,21 @@ function Home() {
   const [saldo, setSaldo] = useState(0);
 
   useEffect(() => {
-    const usuarioService = new UsuarioService()
+    const usuarioService = new UsuarioService();
 
-    const usuarioLogadoString = localStorage.getItem("usuario_logado")
-    const usuarioLogado = JSON.parse(usuarioLogadoString)
-    
-    usuarioService.obterSaldoPorUsuario(usuarioLogado.id)
-      .then((response) => {
-        setSaldo(response.data);
-      })
-      .catch((error) => {
-        console.error(error.response);
-      });
+    const usuarioLogadoString = localStorage.getItem("usuario_logado");
+    const usuarioLogado = JSON.parse(usuarioLogadoString);
+
+    if (usuarioLogado != null) {
+      usuarioService
+        .obterSaldoPorUsuario(usuarioLogado.id)
+        .then((response) => {
+          setSaldo(response.data);
+        })
+        .catch((error) => {
+          console.error(error.response);
+        });
+    }
   });
 
   return (
