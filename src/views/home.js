@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import FormButtonGroup from "../components/formButtonGroup";
 import Jumbotron from "../components/jumbotron";
+
 import UsuarioService from "../app/usuarioService";
+import LocalStorageService from "../app/localStorageService";
 
 function Home() {
   const [saldo, setSaldo] = useState(0);
@@ -9,8 +11,7 @@ function Home() {
   useEffect(() => {
     const usuarioService = new UsuarioService();
 
-    const usuarioLogadoString = localStorage.getItem("usuario_logado");
-    const usuarioLogado = JSON.parse(usuarioLogadoString);
+    const usuarioLogado = LocalStorageService.findItem("usuario_logado")
 
     if (usuarioLogado != null) {
       usuarioService

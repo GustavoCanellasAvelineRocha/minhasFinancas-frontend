@@ -2,8 +2,11 @@ import React from "react";
 import Rotas from "./rotas";
 import Navbar from "../components/navbar";
 
-import "bootswatch/dist/cerulean/bootstrap.css";
+import 'toastr/build/toastr.min.js'
+
+import "bootswatch/dist/pulse/bootstrap.css";
 import "../custom.css";
+import 'toastr/build/toastr.css'
 
 function App() {
   return (
