@@ -6,7 +6,7 @@ class LancamentoService extends ApiService {
     }
 
     listarMeses(){
-        return [
+        const list = [
             { label: "Selecione", value: "" },
             { label: "Janeiro", value: 1 },
             { label: "Fevereiro", value: 2 },
@@ -21,14 +21,16 @@ class LancamentoService extends ApiService {
             { label: "Novembro", value: 11 },
             { label: "Dezembro", value: 12 },
           ]
+        return list
     }
 
     listarTipos(){
-        return [
+        const list = [
             { label: "Selecione", value: "" },
             { label: "Despesa", value: "DESPESA" },
             { label: "Receita", value: "RECEITA" },
           ]
+        return list
     }
 
     buscar(LancamentoFiltro){
@@ -52,6 +54,10 @@ class LancamentoService extends ApiService {
 
         console.log(params)
         return this.get(params)
+    }
+
+    deletar(id){
+        return this.delete(`/${id}`)
     }
 }
 

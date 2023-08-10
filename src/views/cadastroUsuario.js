@@ -56,7 +56,7 @@ function CadastroUsuario() {
 
     if(!usuario.email){
       msgs.push("O campo email é obrigatório")
-    }else if(usuario.email.match(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]/)){
+    }else if(!usuario.email.match(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]/)){
       msgs.push('Informe um email válido')
     }
 

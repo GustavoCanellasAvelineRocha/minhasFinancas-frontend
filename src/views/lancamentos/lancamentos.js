@@ -6,7 +6,8 @@ import SelectMenu from "../../components/selectMenu";
 import TablePesquisas from "./TablePesquisas";
 import LancamentoService from "../../app/lancamentosService";
 import Localstorege from "../../app/localStorageService";
-import { mensagemErro } from "../../components/toast";
+import { mensagemErro, mensagemSucesso } from "../../components/toast";
+import { Dialog } from "../../../node_modules/primereact/dialog";
 
 function Lancamento() {
   const lancamentosService = new LancamentoService();
@@ -15,12 +16,14 @@ function Lancamento() {
     ano: "",
     mes: "",
     tipo: "",
-    lancamentos: []
+    lancamentos: [],
   });
+
+  const[visibleDialog,setvisibleDialog] = useState(true);
 
   const buscar = () => {
     const usuarioLogado = Localstorege.findItem("usuario_logado");
-    
+
     const lancamentoFiltro = {
       ano: filtro.ano,
       mes: filtro.mes,
@@ -31,18 +34,31 @@ function Lancamento() {
     lancamentosService
       .buscar(lancamentoFiltro)
       .then((response) => {
-        
-        setFiltro({ ...filtro, lancamentos: response.data })
+        setFiltro({ ...filtro, lancamentos: response.data });
       })
       .catch((error) => {
-        console.log("aqui")
+        console.log("aqui");
         mensagemErro(error.response.data);
       });
   };
 
-  const listMouths = lancamentosService.listarMeses
+  const listMouths = lancamentosService.listarMeses();
 
-  const listTypes = lancamentosService.listarTipos
+  const listTypes = lancamentosService.listarTipos();
+
+  const editar = (id) => {};
+
+  const deletar = (id) => {
+    lancamentosService
+      .deletar(id)
+      .then((response) => {
+        mensagemSucesso("Lancamento deletado com sucesso!");
+        buscar();
+      })
+      .catch((error) => {
+        mensagemErro(error.response.data);
+      });
+  };
 
   return (
     <Card title="Busca Lançamentos">
@@ -104,11 +120,27 @@ function Lancamento() {
             </form>
           </div>
         </div>
-      </div>
-      <br></br>
-      <div className="row">
-        <div className="col-md-12">
-          <TablePesquisas lancamentos={filtro.lancamentos}></TablePesquisas>
+        <br></br>
+        <div className="row">
+          <div className="col-md-12">
+            <TablePesquisas
+              lancamentos={filtro.lancamentos}
+              editarAction={editar}
+              deletarAction={deletar}
+            ></TablePesquisas>
+          </div>
+        </div>
+        <div>
+          <Dialog
+            header="Confirmacao"
+            visible={visibleDialog}
+            style={{ width: "50vw" }}
+            onHide={() => setvisibleDialog(false)}
+          >
+            <p className="m-0">
+              Realmente deseja excluir esse lancamento?
+            </p>
+          </Dialog>
         </div>
       </div>
     </Card>
