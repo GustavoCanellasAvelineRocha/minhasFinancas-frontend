@@ -28,7 +28,7 @@ function Navbar() {
                 href="/cadastro-usuarios"
                 label="Cadastro"
               ></NavbarItem>
-              <NavbarItem href="/lancamentos" label="Lancamentos"></NavbarItem>
+              <NavbarItem href="/lancamentos-busca" label="Lancamentos"></NavbarItem>
             </ul>
           </div>
         </div>

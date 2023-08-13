@@ -52,7 +52,6 @@ class LancamentoService extends ApiService {
             params = `${params}&ano=${LancamentoFiltro.ano}`
         }
 
-        console.log(params)
         return this.get(params)
     }
 

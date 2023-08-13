@@ -1,4 +1,5 @@
 import React from "react";
+import FormButtonGroup from "../../components/formButtonGroup";
 
 function TablePesquisas(props) {
   const rows = props.lancamentos.map((lancamento, index) => {
@@ -10,20 +11,22 @@ function TablePesquisas(props) {
         <td>{lancamento.mes}</td>
         <td>{lancamento.status}</td>
         <td>
-          <button
-            type="button"
-            className="btn btn-info"
-            onClick={(e) => props.editarAction(lancamento.id)}
-          >
-            editar
-          </button>
-          <button
-            type="button"
-            className="btn btn-danger"
-            onClick={(e) => props.deletarAction(lancamento.id)}
-          >
-            deletar
-          </button>
+          <FormButtonGroup>
+            <button
+              type="button"
+              className="btn btn-info"
+              onClick={(e) => props.editarAction(lancamento.id)}
+            >
+              editar
+            </button>
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={(e) => props.deletarAction(lancamento.id)}
+            >
+              deletar
+            </button>
+          </FormButtonGroup>
         </td>
       </tr>
     );

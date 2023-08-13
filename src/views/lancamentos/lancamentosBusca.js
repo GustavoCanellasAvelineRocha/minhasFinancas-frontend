@@ -7,9 +7,10 @@ import TablePesquisas from "./TablePesquisas";
 import LancamentoService from "../../app/lancamentosService";
 import Localstorege from "../../app/localStorageService";
 import { mensagemErro, mensagemSucesso } from "../../components/toast";
-import { Dialog } from "../../../node_modules/primereact/dialog";
+import { Dialog } from "primereact/dialog";
+import { Button } from "primereact/button";
 
-function Lancamento() {
+function LancamentoBusca() {
   const lancamentosService = new LancamentoService();
 
   const [filtro, setFiltro] = useState({
@@ -17,9 +18,10 @@ function Lancamento() {
     mes: "",
     tipo: "",
     lancamentos: [],
+    idDeletar: 0,
   });
 
-  const[visibleDialog,setvisibleDialog] = useState(true);
+  const [visibleDialog, setvisibleDialog] = useState(false);
 
   const buscar = () => {
     const usuarioLogado = Localstorege.findItem("usuario_logado");
@@ -37,7 +39,6 @@ function Lancamento() {
         setFiltro({ ...filtro, lancamentos: response.data });
       })
       .catch((error) => {
-        console.log("aqui");
         mensagemErro(error.response.data);
       });
   };
@@ -48,16 +49,41 @@ function Lancamento() {
 
   const editar = (id) => {};
 
-  const deletar = (id) => {
+  const abrirConfirmacaoDeletar = (id) => {
+    setvisibleDialog(true);
+    setFiltro({ ...filtro, idDeletar: id });
+  };
+
+  const fecharConfirmacao = () => {
+    setvisibleDialog(false);
+    setFiltro({ ...filtro, idDeletar: 0 });
+  };
+
+  const deletar = () => {
     lancamentosService
-      .deletar(id)
+      .deletar(filtro.idDeletar)
       .then((response) => {
         mensagemSucesso("Lancamento deletado com sucesso!");
         buscar();
+        fecharConfirmacao();
       })
       .catch((error) => {
         mensagemErro(error.response.data);
       });
+  };
+
+  const dialogFooter = () => {
+    return(
+      <div>
+      <Button
+        label="Cancelar"
+        icon="pi pi-times"
+        onClick={fecharConfirmacao}
+        className="p-button-text"
+      />
+      <Button label="Confirmar" icon="pi pi-check" onClick={deletar} />
+    </div>
+    )
   };
 
   return (
@@ -126,7 +152,7 @@ function Lancamento() {
             <TablePesquisas
               lancamentos={filtro.lancamentos}
               editarAction={editar}
-              deletarAction={deletar}
+              deletarAction={abrirConfirmacaoDeletar}
             ></TablePesquisas>
           </div>
         </div>
@@ -136,10 +162,9 @@ function Lancamento() {
             visible={visibleDialog}
             style={{ width: "50vw" }}
             onHide={() => setvisibleDialog(false)}
+            footer={dialogFooter}
           >
-            <p className="m-0">
-              Realmente deseja excluir esse lancamento?
-            </p>
+            <p className="m-0">Realmente deseja excluir esse lancamento?</p>
           </Dialog>
         </div>
       </div>
@@ -147,4 +172,4 @@ function Lancamento() {
   );
 }
 
-export default Lancamento;
+export default LancamentoBusca;
