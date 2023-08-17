@@ -9,9 +9,11 @@ import Localstorege from "../../app/localStorageService";
 import { mensagemErro, mensagemSucesso } from "../../components/toast";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
+import { useNavigate } from "react-router-dom";
 
 function LancamentoBusca() {
   const lancamentosService = new LancamentoService();
+  const navigate = useNavigate()
 
   const [filtro, setFiltro] = useState({
     ano: "",
@@ -86,6 +88,10 @@ function LancamentoBusca() {
     )
   };
 
+  const irParaCadastro = () => {
+    navigate("/lancamentos-cadastro")
+  }
+
   return (
     <Card title="Busca Lançamentos">
       <div className="row">
@@ -138,7 +144,7 @@ function LancamentoBusca() {
                   >
                     Buscar
                   </button>
-                  <button type="button" className="btn btn-danger">
+                  <button type="button" className="btn btn-danger" onClick={irParaCadastro}>
                     Cadastrar
                   </button>
                 </FormButtonGroup>

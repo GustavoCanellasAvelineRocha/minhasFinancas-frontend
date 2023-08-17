@@ -5,6 +5,10 @@ class LancamentoService extends ApiService {
         super('/api/lancamentos')
     }
 
+    salvar(lancamento){
+        return this.post("",lancamento)
+    }
+
     listarMeses(){
         const list = [
             { label: "Selecione", value: "" },
