@@ -14,17 +14,31 @@ function TablePesquisas(props) {
           <FormButtonGroup>
             <button
               type="button"
+              className="btn btn-success"
+              onClick={(e) => props.alterarStatus(lancamento,"EFETIVADO")}
+            >
+              Efetivar
+            </button>
+            <button
+              type="button"
+              className="btn btn-warning"
+              onClick={(e) => props.alterarStatus(lancamento,"CANCELADO")}
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
               className="btn btn-info"
               onClick={(e) => props.editarAction(lancamento.id)}
             >
-              editar
+              Editar
             </button>
             <button
               type="button"
               className="btn btn-danger"
               onClick={(e) => props.deletarAction(lancamento.id)}
             >
-              deletar
+              Deletar
             </button>
           </FormButtonGroup>
         </td>

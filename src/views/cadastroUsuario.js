@@ -3,11 +3,10 @@ import React, { useState } from "react";
 import Card from "../components/card";
 import FormLabel from "../components/formLabel";
 import FormButtonGroup from "../components/formButtonGroup";
-import { mensagemSucesso,mensagemErro} from "../components/toast";
+import { mensagemSucesso, mensagemErro } from "../components/toast";
 import { useNavigate } from "react-router-dom";
 
 import UsuarioService from "../app/usuarioService";
-
 
 function CadastroUsuario() {
   const navigate = useNavigate();
@@ -47,47 +46,38 @@ function CadastroUsuario() {
     }));
   };
 
-  const validar = () => {
-    const msgs = []
-
-    if(!usuario.nome){
-      msgs.push("O campo nome é obrigatório")
-    }
-
-    if(!usuario.email){
-      msgs.push("O campo email é obrigatório")
-    }else if(!usuario.email.match(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]/)){
-      msgs.push('Informe um email válido')
-    }
-
-    if(!usuario.senha){
-      msgs.push("O campo senha é obrigatório")
-    }else if(!usuario.senhaRepetida){
-      msgs.push("Por favor, repita sua senha.")
-    }else if(usuario.senha !== usuario.senhaRepetida){
-      msgs.push("As senhas não são iguais, por favor, tente novamente.")
-    }
-
-    return msgs
-  }
-
   const cadastrar = () => {
-    const msgs = validar()
+    const usuarioService = new UsuarioService();
 
-    if(msgs.length>0){
-      msgs.forEach(mensagemErro)
+    const usuarioAux = {
+      nome: usuario.nome,
+      email: usuario.email,
+      senha: usuario.senha,
+      senhaRepetida: usuario.senhaRepetida
+    };
+
+    console.log(usuarioAux)
+
+    try{
+      usuarioService.validar(usuarioAux);
+    }catch(erro){
+      const mensagem = erro.mensagem;
+      mensagem.forEach(msg => {
+        mensagemErro(msg)
+      });
       return false
     }
-
-    const usuarioService = new UsuarioService();
+    
     usuarioService
       .salvar(usuario)
       .then(() => {
-        mensagemSucesso('Usuario cadastrado com sucesso! faca o login para continuar');
+        mensagemSucesso(
+          "Usuario cadastrado com sucesso! faca o login para continuar"
+        );
         navigate("/login");
       })
       .catch((error) => {
-        mensagemErro(error.response.data)
+        mensagemErro(error.response.data);
       });
   };
 

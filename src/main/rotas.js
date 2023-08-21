@@ -16,6 +16,7 @@ function Rotas() {
         <Route path="/home" element={<Home />} />
         <Route path="/lancamentos-busca" element={<LancamentoBusca />} />
         <Route path="/lancamentos-cadastro" element={<LancamentosCadastro />} />
+        <Route path="/lancamentos-cadastro/:id" element={<LancamentosCadastro />} />
       </Routes>
     </BrowserRouter>
   );

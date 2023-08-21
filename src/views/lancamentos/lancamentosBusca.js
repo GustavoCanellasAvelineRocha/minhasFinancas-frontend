@@ -9,11 +9,12 @@ import Localstorege from "../../app/localStorageService";
 import { mensagemErro, mensagemSucesso } from "../../components/toast";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 
 function LancamentoBusca() {
   const lancamentosService = new LancamentoService();
   const navigate = useNavigate()
+  const usuarioLogado = Localstorege.findItem("usuario_logado");
 
   const [filtro, setFiltro] = useState({
     ano: "",
@@ -26,8 +27,6 @@ function LancamentoBusca() {
   const [visibleDialog, setvisibleDialog] = useState(false);
 
   const buscar = () => {
-    const usuarioLogado = Localstorege.findItem("usuario_logado");
-
     const lancamentoFiltro = {
       ano: filtro.ano,
       mes: filtro.mes,
@@ -49,7 +48,9 @@ function LancamentoBusca() {
 
   const listTypes = lancamentosService.listarTipos();
 
-  const editar = (id) => {};
+  const editar = (id) => {
+    navigate(`/lancamentos-cadastro/${id}`)
+  };
 
   const abrirConfirmacaoDeletar = (id) => {
     setvisibleDialog(true);
@@ -90,6 +91,16 @@ function LancamentoBusca() {
 
   const irParaCadastro = () => {
     navigate("/lancamentos-cadastro")
+  }
+
+  const alterarStatus = (lancamento,status) =>{
+    console.log(status)
+    lancamentosService.alterarStatus(lancamento.id,status).then(response =>{
+      buscar()
+      mensagemSucesso("Status atualizado com sucesso!")
+    }).catch(error =>{
+      mensagemErro(error.response.data)
+    })
   }
 
   return (
@@ -159,6 +170,7 @@ function LancamentoBusca() {
               lancamentos={filtro.lancamentos}
               editarAction={editar}
               deletarAction={abrirConfirmacaoDeletar}
+              alterarStatus={alterarStatus}
             ></TablePesquisas>
           </div>
         </div>

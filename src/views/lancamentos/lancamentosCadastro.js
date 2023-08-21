@@ -1,19 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Card from "../../components/card";
 import FormLabel from "../../components/formLabel";
 import SelectMenu from "../../components/selectMenu";
 import LancamentoService from "../../app/lancamentosService";
 import FormButtonGroup from "../../components/formButtonGroup";
 import Localstorege from "../../app/localStorageService";
+import { useParams } from "react-router-dom";
 
 import { mensagemErro, mensagemSucesso } from "../../components/toast";
 import { useNavigate } from "react-router-dom";
 
 function LancamentosCadastro() {
-  const lancamentosService = new LancamentoService();
-  const navigate = useNavigate()
+  const lancamentosService = useMemo(() => new LancamentoService(), []);
+  const navigate = useNavigate();
   const tipos = lancamentosService.listarTipos();
   const meses = lancamentosService.listarMeses();
+  const [atualizando, setAtualizando] = useState(false);
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (id) {
+      lancamentosService.obterPorId(id).then((response) => {
+        setLancamento(response.data);
+        setAtualizando(true);
+      });
+    }
+  }, [id, lancamentosService]);
 
   const [Lancamento, setLancamento] = useState({
     id: null,
@@ -28,7 +40,7 @@ function LancamentosCadastro() {
   const SalvaLancamento = () => {
     const usuarioLogado = Localstorege.findItem("usuario_logado");
 
-    const lancamentoAux= {
+    const lancamentoAux = {
       id: null,
       idUsuario: usuarioLogado.id,
       descricao: Lancamento.descricao,
@@ -39,22 +51,64 @@ function LancamentosCadastro() {
       status: Lancamento.status,
     };
 
+    validarCampos(lancamentoAux)
+
     lancamentosService
       .salvar(lancamentoAux)
       .then((response) => {
         mensagemSucesso("Lancamento cadastrado com sucesso!");
+        irParaBusca()
       })
       .catch((error) => {
         mensagemErro(error.response.data);
       });
   };
 
-  const irParaBusca = () => { 
-    navigate("/lancamentos-busca")
+  const atualizaLancamento = () => {
+    const usuarioLogado = Localstorege.findItem("usuario_logado");
+
+    const lancamentoAux = {
+      id: Lancamento.id,
+      idUsuario: usuarioLogado.id,
+      descricao: Lancamento.descricao,
+      valor: Lancamento.valor,
+      mes: Lancamento.mes,
+      ano: Lancamento.ano,
+      tipo: Lancamento.tipo,
+      status: Lancamento.status,
+    };
+
+    lancamentosService
+      .atualizar(lancamentoAux)
+      .then((response) => {
+        mensagemSucesso("Lancamento atualizado com sucesso!");
+        irParaBusca()
+      })
+      .catch((error) => {
+        mensagemErro(error.response.data);
+      });
+  };
+
+  const validarCampos = (lancamento) => {
+    try{
+      lancamentosService.validar(lancamento)
+    }catch(erro){
+      const mensagem = erro.mensagem;
+      mensagem.forEach(msg => {
+        mensagemErro(msg)
+      });
+      return false
+    }
   }
 
+  const irParaBusca = () => {
+    navigate("/lancamentos-busca");
+  };
+
   return (
-    <Card title="Cadastro de lancamento">
+    <Card
+      title={atualizando ? "Editando Lancamento" : "Cadastro de lancamento"}
+    >
       <div className="row">
         <div className="col-md-12">
           <FormLabel id="inputDescricao" label="Descricao: *">
@@ -138,13 +192,24 @@ function LancamentosCadastro() {
       </div>
 
       <FormButtonGroup>
-        <button
-          type="button"
-          className="btn btn-success"
-          onClick={SalvaLancamento}
-        >
-          Salvar
-        </button>
+        {atualizando ? (
+          <button
+            type="button"
+            className="btn btn-success"
+            onClick={atualizaLancamento}
+          >
+            Editar
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="btn btn-success"
+            onClick={SalvaLancamento}
+          >
+            Salvar
+          </button>
+        )}
+
         <button type="button" className="btn btn-danger" onClick={irParaBusca}>
           Cancelar
         </button>
