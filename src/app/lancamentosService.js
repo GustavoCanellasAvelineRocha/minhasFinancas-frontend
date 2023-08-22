@@ -15,8 +15,6 @@ class LancamentoService extends ApiService {
   }
 
   atualizar(lancamento) {
-    console.log(lancamento);
-    console.log(`/${lancamento.id}`);
     return this.put(`/${lancamento.id}`, lancamento);
   }
 

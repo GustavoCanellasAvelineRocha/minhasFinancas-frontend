@@ -133,10 +133,10 @@ function CadastroUsuario() {
                 type="button"
                 className="btn btn-success "
               >
-                Salvar
+                <i className="pi pi-save"></i> Salvar
               </button>
               <a type="button" className="btn btn-danger " href="/login">
-                Cancelar
+              <i className="pi pi-times"></i> Cancelar
               </a>
             </FormButtonGroup>
           </div>

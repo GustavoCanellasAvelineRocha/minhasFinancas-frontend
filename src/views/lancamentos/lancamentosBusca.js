@@ -6,7 +6,7 @@ import SelectMenu from "../../components/selectMenu";
 import TablePesquisas from "./TablePesquisas";
 import LancamentoService from "../../app/lancamentosService";
 import Localstorege from "../../app/localStorageService";
-import { mensagemErro, mensagemSucesso } from "../../components/toast";
+import { mensagemAlerta, mensagemErro, mensagemSucesso } from "../../components/toast";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import { useNavigate} from "react-router-dom";
@@ -37,6 +37,9 @@ function LancamentoBusca() {
     lancamentosService
       .buscar(lancamentoFiltro)
       .then((response) => {
+        if(response.data.length === 0){
+          mensagemAlerta("Nenhum resultado encontrado")
+        }
         setFiltro({ ...filtro, lancamentos: response.data });
       })
       .catch((error) => {
@@ -153,10 +156,10 @@ function LancamentoBusca() {
                     className="btn btn-success"
                     onClick={buscar}
                   >
-                    Buscar
+                    <i className="pi pi-search"></i> Buscar
                   </button>
                   <button type="button" className="btn btn-danger" onClick={irParaCadastro}>
-                    Cadastrar
+                  <i className="pi pi-plus"></i> Cadastrar
                   </button>
                 </FormButtonGroup>
               </fieldset>

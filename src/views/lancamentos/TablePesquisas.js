@@ -3,6 +3,7 @@ import FormButtonGroup from "../../components/formButtonGroup";
 
 function TablePesquisas(props) {
   const rows = props.lancamentos.map((lancamento, index) => {
+    const status = lancamento.status;
     return (
       <tr key={index}>
         <td>{lancamento.descricao}</td>
@@ -12,33 +13,41 @@ function TablePesquisas(props) {
         <td>{lancamento.status}</td>
         <td>
           <FormButtonGroup>
-            <button
-              type="button"
-              className="btn btn-success"
-              onClick={(e) => props.alterarStatus(lancamento,"EFETIVADO")}
-            >
-              Efetivar
-            </button>
-            <button
-              type="button"
-              className="btn btn-warning"
-              onClick={(e) => props.alterarStatus(lancamento,"CANCELADO")}
-            >
-              Cancelar
-            </button>
+            {status === "PENDENTE" && (
+              <FormButtonGroup>
+                <button
+                  type="button"
+                  className="btn btn-success"
+                  onClick={(e) => props.alterarStatus(lancamento, "EFETIVADO")}
+                  title="Efetivar"
+                >
+                  <i className="pi pi-check"></i>
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-warning"
+                  onClick={(e) => props.alterarStatus(lancamento, "CANCELADO")}
+                  title="Cancelar"
+                >
+                  <i className="pi pi-times"></i>
+                </button>
+                </FormButtonGroup>
+            )}
             <button
               type="button"
               className="btn btn-info"
               onClick={(e) => props.editarAction(lancamento.id)}
+              title="Editar"
             >
-              Editar
+              <i className="pi pi-file-edit"></i>
             </button>
             <button
               type="button"
               className="btn btn-danger"
               onClick={(e) => props.deletarAction(lancamento.id)}
+              title="Deletar"
             >
-              Deletar
+              <i className="pi pi-trash"></i>
             </button>
           </FormButtonGroup>
         </td>

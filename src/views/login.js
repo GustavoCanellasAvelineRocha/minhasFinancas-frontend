@@ -32,14 +32,14 @@ function Login() {
   };
 
   const entrar = async () => {
-    usuarioService
+    await usuarioService
       .autenticar({
         email: usuario.email,
         senha: usuario.senha,
       })
       .then((response) => {
         LocalStorageService.addItem("usuario_logado", response.data);
-        navigate("/home");
+        navigate("/home")
       })
       .catch((error) => {
         mensagemErro(error.response.data);
@@ -87,14 +87,14 @@ function Login() {
                         className="btn btn-success"
                         onClick={entrar}
                       >
-                        Entrar
+                        <i className="pi pi-sign-in"></i> Entrar
                       </button>
                       <button
                         type="button"
                         className="btn btn-danger"
                         onClick={irParaCadastro}
                       >
-                        Cadastrar
+                        <i className="pi pi-plus"></i> Cadastrar
                       </button>
                     </FormButtonGroup>
                   </fieldset>

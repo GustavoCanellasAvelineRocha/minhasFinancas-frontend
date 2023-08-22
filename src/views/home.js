@@ -42,14 +42,14 @@ function Home() {
           href="/cadastro-usuarios"
           role="button"
         >
-          <i className="fa fa-users"></i> Cadastrar Usuário
+          <i className="pi pi-users"></i> Cadastrar Usuário
         </a>
         <a
           className="btn btn-danger btn-lg"
-          href="https://bootswatch.com/flatly/#"
+          href="/lancamentos-cadastro"
           role="button"
         >
-          <i className="fa fa-users"></i> Cadastrar Lançamento
+          <i className="pi pi-money-bill"></i> Cadastrar Lançamento
         </a>
       </FormButtonGroup>
     </Jumbotron>

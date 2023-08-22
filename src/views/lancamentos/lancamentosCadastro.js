@@ -198,7 +198,7 @@ function LancamentosCadastro() {
             className="btn btn-success"
             onClick={atualizaLancamento}
           >
-            Editar
+            <i className="pi pi-pencil"></i> Editar
           </button>
         ) : (
           <button
@@ -206,12 +206,12 @@ function LancamentosCadastro() {
             className="btn btn-success"
             onClick={SalvaLancamento}
           >
-            Salvar
+            <i className="pi pi-save"></i> Salvar
           </button>
         )}
 
         <button type="button" className="btn btn-danger" onClick={irParaBusca}>
-          Cancelar
+        <i className="pi pi-times"></i> Cancelar
         </button>
       </FormButtonGroup>
     </Card>
