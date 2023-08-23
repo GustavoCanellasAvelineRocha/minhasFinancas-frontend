@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import NavbarItem from "./navbarItem";
 import AuthService from "../app/authService";
-
-const deslogar = () => {AuthService.removerUsuarioAutenticado()};
-
-function usuarioEstaAutenticado(){
-  return AuthService.usuarioEstaAutenticado()
-}
+import { AuthContext } from "../main/Provedor";
 
 function Navbar() {
+  const {usuario}  = useContext(AuthContext);
+
+  const deslogar = () => {
+    AuthService.removerUsuarioAutenticado();
+  };
+
+  function usuarioEstaAutenticado() {
+    return usuario.estaAutenticado;
+  }
+
   return (
     <nav className="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
       <div className="container">
@@ -28,13 +33,21 @@ function Navbar() {
         </button>
         <div className="collapse navbar-collapse" id="navbarColor01">
           <ul className="navbar-nav me-auto">
-            <NavbarItem render={usuarioEstaAutenticado()} href="/home" label="Home"></NavbarItem>
-            <NavbarItem render={usuarioEstaAutenticado()} onClick={deslogar} href="/login" label="Sair"></NavbarItem>
-            <NavbarItem render={usuarioEstaAutenticado()} href="/cadastro-usuarios" label="Cadastro"></NavbarItem>
+            <NavbarItem
+              render={usuarioEstaAutenticado()}
+              href="/home"
+              label="Home"
+            ></NavbarItem>
             <NavbarItem
               render={usuarioEstaAutenticado()}
               href="/lancamentos-busca"
               label="Lancamentos"
+            ></NavbarItem>
+            <NavbarItem
+              render={usuarioEstaAutenticado()}
+              onClick={deslogar}
+              href="/login"
+              label="Sair"
             ></NavbarItem>
           </ul>
         </div>

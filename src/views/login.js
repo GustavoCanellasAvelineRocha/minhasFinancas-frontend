@@ -3,15 +3,15 @@ import FormLabel from "../components/formLabel";
 import Card from "../components/card";
 import FormButtonGroup from "../components/formButtonGroup";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../main/Provedor";
 
 import UsuarioService from "../app/usuarioService";
 import { mensagemErro } from "../components/toast";
+import { AuthContext } from "../main/Provedor";
 
 function Login() {
   const usuarioService = new UsuarioService();
+  const {fazerLogin} = useContext(AuthContext)
   const navigate = useNavigate();
-  const contexto = useContext(AuthContext)
 
   const [usuario, setUsuario] = useState({
     email: "",
@@ -39,8 +39,8 @@ function Login() {
         senha: usuario.senha,
       })
       .then((response) => {
-        contexto.fazerLogin(response.data)
-        navigate("/home")
+        fazerLogin(response.data)
+        navigate("/home");
       })
       .catch((error) => {
         mensagemErro(error.response.data);

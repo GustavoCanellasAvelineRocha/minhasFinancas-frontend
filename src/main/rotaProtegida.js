@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
-import AuthService from '../app/authService';
+import { AuthContext } from './Provedor';
 
 function RotaProtegida({ children }) {
-  const autenticado = AuthService.usuarioEstaAutenticado()
-  console.log(autenticado)
-  if (!autenticado) {
+  const {usuario} = useContext(AuthContext)
+  if (!usuario.estaAutenticado) {
     return <Navigate to="/login"></Navigate>;
   }
   return children;

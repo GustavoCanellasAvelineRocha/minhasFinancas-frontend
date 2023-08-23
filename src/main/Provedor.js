@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import AuthService from "../app/authService";
 
 export const AuthContext = React.createContext();
-export const AuthConsumer = AuthContext.Consumer;
 const AuthProvider = AuthContext.Provider;
 
 function Provedor({ children }) {
   const [usuario, setUsuario] = useState({
-    usuarioAutenticado: null,
-    estaAutenticado: false
+    usuarioAutenticado: AuthService.findUsuarioAutenticado(),
+    estaAutenticado: AuthService.usuarioEstaAutenticado()
   });
 
   const fazerLogin = (usuario) => {
@@ -27,17 +26,7 @@ function Provedor({ children }) {
     });
   };
 
-  if (usuario.isloading) {
-    return null;
-  } else {
-    const contexto = {
-      usuarioAutenticado: usuario.usuarioAutenticado,
-      estaAutenticado: usuario.estaAutenticado,
-      fazerLogin: fazerLogin,
-      desfazerLogin: desfazerLogin,
-    };
-    return <AuthProvider value={contexto}>{children}</AuthProvider>;
-  }
+  return <AuthProvider value={{usuario,fazerLogin,desfazerLogin}}>{children}</AuthProvider>;
 }
 
 export default Provedor;
