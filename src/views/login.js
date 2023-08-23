@@ -31,8 +31,8 @@ function Login() {
     }));
   };
 
-  const entrar = async () => {
-    await usuarioService
+  const entrar = () => {
+    usuarioService
       .autenticar({
         email: usuario.email,
         senha: usuario.senha,

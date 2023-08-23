@@ -6,7 +6,6 @@ import Home from "../views/home";
 import LancamentoBusca from "../views/lancamentos/lancamentosBusca";
 import LancamentosCadastro from "../views/lancamentos/lancamentosCadastro";
 import RotaProtegida from "./rotaProtegida";
-import AuthService from "../app/authService";;
 
 function Rotas() {
   return (
@@ -19,7 +18,7 @@ function Rotas() {
         <Route
           path="/home"
           element={
-            <RotaProtegida autenticado={AuthService.usuarioEstaAutenticado()}>
+            <RotaProtegida >
               <Home />
             </RotaProtegida>
           }
@@ -27,7 +26,7 @@ function Rotas() {
         <Route
           path="/lancamentos-busca"
           element={
-            <RotaProtegida autenticado={AuthService.usuarioEstaAutenticado()}>
+            <RotaProtegida >
               <LancamentoBusca />
             </RotaProtegida>
           }
@@ -35,7 +34,7 @@ function Rotas() {
         <Route
           path="/lancamentos-cadastro"
           element={
-            <RotaProtegida autenticado={AuthService.usuarioEstaAutenticado()}>
+            <RotaProtegida >
               <LancamentosCadastro />
             </RotaProtegida>
           }
@@ -43,7 +42,7 @@ function Rotas() {
         <Route
           path="/lancamentos-cadastro/:id"
           element={
-            <RotaProtegida autenticado={AuthService.usuarioEstaAutenticado()}>
+            <RotaProtegida >
               <LancamentosCadastro />
             </RotaProtegida>
           }
