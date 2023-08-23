@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import FormLabel from "../components/formLabel";
 import Card from "../components/card";
 import FormButtonGroup from "../components/formButtonGroup";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../main/Provedor";
 
 import UsuarioService from "../app/usuarioService";
-import LocalStorageService from "../app/localStorageService";
 import { mensagemErro } from "../components/toast";
 
 function Login() {
   const usuarioService = new UsuarioService();
   const navigate = useNavigate();
+  const contexto = useContext(AuthContext)
 
   const [usuario, setUsuario] = useState({
     email: "",
@@ -38,7 +39,7 @@ function Login() {
         senha: usuario.senha,
       })
       .then((response) => {
-        LocalStorageService.addItem("usuario_logado", response.data);
+        contexto.fazerLogin(response.data)
         navigate("/home")
       })
       .catch((error) => {
