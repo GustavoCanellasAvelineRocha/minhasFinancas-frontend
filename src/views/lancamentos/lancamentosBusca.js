@@ -70,7 +70,7 @@ function LancamentoBusca() {
       .deletar(filtro.idDeletar)
       .then((response) => {
         mensagemSucesso("Lancamento deletado com sucesso!");
-        buscar();
+        buscar()
         fecharConfirmacao();
       })
       .catch((error) => {
@@ -97,7 +97,6 @@ function LancamentoBusca() {
   }
 
   const alterarStatus = (lancamento,status) =>{
-    console.log(status)
     lancamentosService.alterarStatus(lancamento.id,status).then(response =>{
       buscar()
       mensagemSucesso("Status atualizado com sucesso!")

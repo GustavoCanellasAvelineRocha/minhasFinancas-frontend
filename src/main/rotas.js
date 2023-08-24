@@ -43,7 +43,7 @@ function Rotas() {
           path="/lancamentos-cadastro/:id"
           element={
             <RotaProtegida >
-              <LancamentosCadastro />a
+              <LancamentosCadastro />
             </RotaProtegida>
           }
         />
