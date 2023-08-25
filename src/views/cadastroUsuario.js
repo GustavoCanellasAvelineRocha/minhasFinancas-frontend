@@ -108,7 +108,7 @@ function CadastroUsuario() {
             </FormLabel>
             <FormLabel label="Senha *" htmlFor="inputSenha">
               <input
-                type="senha"
+                type="Password"
                 id="inputSenha"
                 name="senha"
                 value={usuario.senha}
@@ -118,7 +118,7 @@ function CadastroUsuario() {
             </FormLabel>
             <FormLabel label="Repita Sua Senha *" htmlFor="inputSenhaRepetida">
               <input
-                type="senhaRepetida *"
+                type="Password"
                 id="inputSenhaRepetida"
                 name="senhaRepetida"
                 value={usuario.senhaRepetida}

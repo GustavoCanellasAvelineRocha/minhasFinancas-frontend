@@ -5,7 +5,7 @@ import Provedor from "./Provedor";
 
 import "toastr/build/toastr.min.js";
 
-import "bootswatch/dist/pulse/bootstrap.css";
+import "bootswatch/dist/materia/bootstrap.css";
 import "../custom.css";
 import "toastr/build/toastr.css";
 import "primeicons/primeicons.css";

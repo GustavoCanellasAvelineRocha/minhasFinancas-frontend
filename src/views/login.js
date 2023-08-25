@@ -73,7 +73,7 @@ function Login() {
                     </FormLabel>
                     <FormLabel htmlFor="exampleInputPassword1" label="Senha: *">
                       <input
-                        type="password"
+                        type="Password"
                         className="form-control"
                         id="exampleInputPassword1"
                         placeholder="Password"
