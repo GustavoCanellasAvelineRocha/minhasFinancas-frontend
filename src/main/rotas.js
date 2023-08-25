@@ -6,19 +6,27 @@ import Home from "../views/home";
 import LancamentoBusca from "../views/lancamentos/lancamentosBusca";
 import LancamentosCadastro from "../views/lancamentos/lancamentosCadastro";
 import RotaProtegida from "./rotaProtegida";
+import RotaDeLogin from "./rotaDeLogin";
 
 function Rotas() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/login"
+          element={
+            <RotaDeLogin>
+              <Login />
+            </RotaDeLogin>
+          }
+        />
         <Route path="/cadastro-usuarios" element={<CadastroUsuario />} />
 
         <Route
           path="/home"
           element={
-            <RotaProtegida >
+            <RotaProtegida>
               <Home />
             </RotaProtegida>
           }
@@ -26,7 +34,7 @@ function Rotas() {
         <Route
           path="/lancamentos-busca"
           element={
-            <RotaProtegida >
+            <RotaProtegida>
               <LancamentoBusca />
             </RotaProtegida>
           }
@@ -34,7 +42,7 @@ function Rotas() {
         <Route
           path="/lancamentos-cadastro"
           element={
-            <RotaProtegida >
+            <RotaProtegida>
               <LancamentosCadastro />
             </RotaProtegida>
           }
@@ -42,7 +50,7 @@ function Rotas() {
         <Route
           path="/lancamentos-cadastro/:id"
           element={
-            <RotaProtegida >
+            <RotaProtegida>
               <LancamentosCadastro />
             </RotaProtegida>
           }

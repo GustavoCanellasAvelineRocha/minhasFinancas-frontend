@@ -10,7 +10,7 @@ import { AuthContext } from "../main/Provedor";
 
 function Login() {
   const usuarioService = new UsuarioService();
-  const {fazerLogin} = useContext(AuthContext)
+  const { fazerLogin } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [usuario, setUsuario] = useState({
@@ -39,7 +39,7 @@ function Login() {
         senha: usuario.senha,
       })
       .then((response) => {
-        fazerLogin(response.data)
+        fazerLogin(response.data);
         navigate("/home");
       })
       .catch((error) => {
