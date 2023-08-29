@@ -56,8 +56,6 @@ function CadastroUsuario() {
       senhaRepetida: usuario.senhaRepetida
     };
 
-    console.log(usuarioAux)
-
     try{
       usuarioService.validar(usuarioAux);
     }catch(erro){

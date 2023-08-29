@@ -47,6 +47,30 @@ function Login() {
       });
   };
 
+  const entrarConvidado = () => {
+    usuarioService
+      .salvarConvidado()
+      .then((response) => {
+        const convidado = response.data;
+
+        usuarioService
+          .autenticar({
+            email: convidado.email,
+            senha: convidado.senha,
+          })
+          .then((response) => {
+            fazerLogin(response.data);
+            navigate("/home");
+          })
+          .catch((error) => {
+            mensagemErro(error.response.data);
+          });
+      })
+      .catch((error) => {
+        mensagemErro(error.response.data);
+      });
+  };
+
   const irParaCadastro = () => {
     navigate("/cadastro-usuarios");
   };
@@ -97,6 +121,13 @@ function Login() {
                       >
                         <i className="pi pi-plus"></i> Cadastrar
                       </button>
+                      <button
+                        type="button"
+                        className="btn btn-info"
+                        onClick={entrarConvidado}
+                      >
+                        <i className="pi pi-user"></i> Convidado
+                      </button> 
                     </FormButtonGroup>
                   </fieldset>
                 </form>

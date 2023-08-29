@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Rotas from "./rotas";
 import Navbar from "../components/navbar";
 import Provedor from "./Provedor";
@@ -14,6 +14,23 @@ import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 
 function App() {
+  useEffect(() => {
+    const handleBeforeUnload = async () => {
+      
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    const clearLocalStorage = () => {
+      localStorage.clear();
+    };
+
+    window.addEventListener("beforeunload", clearLocalStorage);
+
+    return () => {
+      window.removeEventListener("beforeunload", clearLocalStorage);
+    };
+  }, []);
+
   return (
     <>
       <Provedor>

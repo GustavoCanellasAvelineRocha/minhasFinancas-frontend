@@ -18,6 +18,11 @@ class UsuarioService extends ApiService {
     return this.post("", usuario);
   }
 
+  salvarConvidado() {
+    return this.post("/Convidado");
+  }
+
+
   validar(usuario) {
     const msgs = [];
 
