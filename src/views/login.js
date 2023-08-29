@@ -51,20 +51,8 @@ function Login() {
     usuarioService
       .salvarConvidado()
       .then((response) => {
-        const convidado = response.data;
-
-        usuarioService
-          .autenticar({
-            email: convidado.email,
-            senha: convidado.senha,
-          })
-          .then((response) => {
-            fazerLogin(response.data);
-            navigate("/home");
-          })
-          .catch((error) => {
-            mensagemErro(error.response.data);
-          });
+        fazerLogin(response.data)
+        navigate("/home");
       })
       .catch((error) => {
         mensagemErro(error.response.data);
