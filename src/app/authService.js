@@ -1,25 +1,24 @@
-import LocalStorageService from "./localStorageService"
+import SessionStorageService from "./SessionStorageService";
 
-export const USUARIO_LOGADO= "usuario_logado"
+export const USUARIO_LOGADO = "usuario_logado";
 
-class AuthService{
+class AuthService {
+  static usuarioEstaAutenticado() {
+    const usuario = SessionStorageService.findItem(USUARIO_LOGADO);
+    return usuario && usuario.id;
+  }
 
-    static usuarioEstaAutenticado(){
-        const usuario = LocalStorageService.findItem(USUARIO_LOGADO)
-        return usuario && usuario.id
-    }
+  static removerUsuarioAutenticado() {
+    SessionStorageService.removerItem(USUARIO_LOGADO);
+  }
 
-    static removerUsuarioAutenticado(){
-        LocalStorageService.removerItem(USUARIO_LOGADO)
-    }
+  static logar(usuario) {
+    SessionStorageService.addItem(USUARIO_LOGADO, usuario);
+  }
 
-    static logar(usuario){
-        LocalStorageService.addItem(USUARIO_LOGADO,usuario)
-    }
-
-    static findUsuarioAutenticado(){
-        return LocalStorageService.findItem(USUARIO_LOGADO)
-    }
+  static findUsuarioAutenticado() {
+    return SessionStorageService.findItem(USUARIO_LOGADO);
+  }
 }
 
-export default AuthService
+export default AuthService;

@@ -4,7 +4,7 @@ import FormLabel from "../../components/formLabel";
 import SelectMenu from "../../components/selectMenu";
 import LancamentoService from "../../app/lancamentosService";
 import FormButtonGroup from "../../components/formButtonGroup";
-import Localstorege from "../../app/localStorageService";
+import Localstorege from "../../app/SessionStorageService";
 import { useParams } from "react-router-dom";
 
 import { mensagemErro, mensagemSucesso } from "../../components/toast";
@@ -51,13 +51,13 @@ function LancamentosCadastro() {
       status: Lancamento.status,
     };
 
-    validarCampos(lancamentoAux)
+    validarCampos(lancamentoAux);
 
     lancamentosService
       .salvar(lancamentoAux)
       .then((response) => {
         mensagemSucesso("Lancamento cadastrado com sucesso!");
-        irParaBusca()
+        irParaBusca();
       })
       .catch((error) => {
         mensagemErro(error.response.data);
@@ -82,7 +82,7 @@ function LancamentosCadastro() {
       .atualizar(lancamentoAux)
       .then((response) => {
         mensagemSucesso("Lancamento atualizado com sucesso!");
-        irParaBusca()
+        irParaBusca();
       })
       .catch((error) => {
         mensagemErro(error.response.data);
@@ -90,16 +90,16 @@ function LancamentosCadastro() {
   };
 
   const validarCampos = (lancamento) => {
-    try{
-      lancamentosService.validar(lancamento)
-    }catch(erro){
+    try {
+      lancamentosService.validar(lancamento);
+    } catch (erro) {
       const mensagem = erro.mensagem;
-      mensagem.forEach(msg => {
-        mensagemErro(msg)
+      mensagem.forEach((msg) => {
+        mensagemErro(msg);
       });
-      return false
+      return false;
     }
-  }
+  };
 
   const irParaBusca = () => {
     navigate("/lancamentos-busca");
@@ -211,7 +211,7 @@ function LancamentosCadastro() {
         )}
 
         <button type="button" className="btn btn-danger" onClick={irParaBusca}>
-        <i className="pi pi-times"></i> Cancelar
+          <i className="pi pi-times"></i> Cancelar
         </button>
       </FormButtonGroup>
     </Card>

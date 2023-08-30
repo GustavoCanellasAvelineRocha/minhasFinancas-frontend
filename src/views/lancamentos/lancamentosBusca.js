@@ -5,15 +5,19 @@ import FormButtonGroup from "../../components/formButtonGroup";
 import SelectMenu from "../../components/selectMenu";
 import TablePesquisas from "./TablePesquisas";
 import LancamentoService from "../../app/lancamentosService";
-import Localstorege from "../../app/localStorageService";
-import { mensagemAlerta, mensagemErro, mensagemSucesso } from "../../components/toast";
+import Localstorege from "../../app/SessionStorageService";
+import {
+  mensagemAlerta,
+  mensagemErro,
+  mensagemSucesso,
+} from "../../components/toast";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function LancamentoBusca() {
   const lancamentosService = new LancamentoService();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const usuarioLogado = Localstorege.findItem("usuario_logado");
 
   const [filtro, setFiltro] = useState({
@@ -37,8 +41,8 @@ function LancamentoBusca() {
     lancamentosService
       .buscar(lancamentoFiltro)
       .then((response) => {
-        if(response.data.length === 0){
-          mensagemAlerta("Nenhum resultado encontrado")
+        if (response.data.length === 0) {
+          mensagemAlerta("Nenhum resultado encontrado");
         }
         setFiltro({ ...filtro, lancamentos: response.data });
       })
@@ -52,7 +56,7 @@ function LancamentoBusca() {
   const listTypes = lancamentosService.listarTipos();
 
   const editar = (id) => {
-    navigate(`/lancamentos-cadastro/${id}`)
+    navigate(`/lancamentos-cadastro/${id}`);
   };
 
   const abrirConfirmacaoDeletar = (id) => {
@@ -70,7 +74,7 @@ function LancamentoBusca() {
       .deletar(filtro.idDeletar)
       .then((response) => {
         mensagemSucesso("Lancamento deletado com sucesso!");
-        buscar()
+        buscar();
         fecharConfirmacao();
       })
       .catch((error) => {
@@ -79,31 +83,34 @@ function LancamentoBusca() {
   };
 
   const dialogFooter = () => {
-    return(
+    return (
       <div>
-      <Button
-        label="Cancelar"
-        icon="pi pi-times"
-        onClick={fecharConfirmacao}
-        className="p-button-text"
-      />
-      <Button label="Confirmar" icon="pi pi-check" onClick={deletar} />
-    </div>
-    )
+        <Button
+          label="Cancelar"
+          icon="pi pi-times"
+          onClick={fecharConfirmacao}
+          className="p-button-text"
+        />
+        <Button label="Confirmar" icon="pi pi-check" onClick={deletar} />
+      </div>
+    );
   };
 
   const irParaCadastro = () => {
-    navigate("/lancamentos-cadastro")
-  }
+    navigate("/lancamentos-cadastro");
+  };
 
-  const alterarStatus = (lancamento,status) =>{
-    lancamentosService.alterarStatus(lancamento.id,status).then(response =>{
-      buscar()
-      mensagemSucesso("Status atualizado com sucesso!")
-    }).catch(error =>{
-      mensagemErro(error.response.data)
-    })
-  }
+  const alterarStatus = (lancamento, status) => {
+    lancamentosService
+      .alterarStatus(lancamento.id, status)
+      .then((response) => {
+        buscar();
+        mensagemSucesso("Status atualizado com sucesso!");
+      })
+      .catch((error) => {
+        mensagemErro(error.response.data);
+      });
+  };
 
   return (
     <Card title="Busca Lançamentos">
@@ -112,7 +119,7 @@ function LancamentoBusca() {
           <div className="db-component">
             <form>
               <fieldset>
-                <FormLabel htmlFor="inputAno" label="Ano: *">
+                <FormLabel htmlFor="inputAno" label="Ano: ">
                   <input
                     type="text"
                     className="form-control"
@@ -125,7 +132,7 @@ function LancamentoBusca() {
                   ></input>
                 </FormLabel>
 
-                <FormLabel htmlFor="inputMes" label="Mês: *">
+                <FormLabel htmlFor="inputMes" label="Mês: ">
                   <SelectMenu
                     id="inputMes"
                     className="form-select"
@@ -137,7 +144,7 @@ function LancamentoBusca() {
                   ></SelectMenu>
                 </FormLabel>
 
-                <FormLabel htmlFor="inputTipo" label={"Tipo: *"}>
+                <FormLabel htmlFor="inputTipo" label={"Tipo: "}>
                   <SelectMenu
                     id="inputTipo"
                     className="form-select"
@@ -157,8 +164,12 @@ function LancamentoBusca() {
                   >
                     <i className="pi pi-search"></i> Buscar
                   </button>
-                  <button type="button" className="btn btn-danger" onClick={irParaCadastro}>
-                  <i className="pi pi-plus"></i> Cadastrar
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    onClick={irParaCadastro}
+                  >
+                    <i className="pi pi-plus"></i> Cadastrar
                   </button>
                 </FormButtonGroup>
               </fieldset>

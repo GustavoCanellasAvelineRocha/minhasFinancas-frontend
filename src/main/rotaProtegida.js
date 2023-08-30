@@ -4,6 +4,7 @@ import { AuthContext } from './Provedor';
 
 function RotaProtegida({ children }) {
   const {usuario} = useContext(AuthContext)
+  
   if (!usuario.estaAutenticado) {
     return <Navigate to="/login"></Navigate>;
   }

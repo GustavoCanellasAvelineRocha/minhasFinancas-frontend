@@ -3,17 +3,15 @@ import FormButtonGroup from "../components/formButtonGroup";
 import Jumbotron from "../components/jumbotron";
 
 import UsuarioService from "../app/usuarioService";
-import LocalStorageService from "../app/localStorageService";
-
+import SessionStorageService from "../app/SessionStorageService";
 
 function Home() {
   const [saldo, setSaldo] = useState(0);
 
-
   useEffect(() => {
     const usuarioService = new UsuarioService();
 
-    const usuarioLogado = LocalStorageService.findItem("usuario_logado")
+    const usuarioLogado = SessionStorageService.findItem("usuario_logado");
 
     if (usuarioLogado != null) {
       usuarioService

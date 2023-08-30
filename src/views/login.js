@@ -51,8 +51,20 @@ function Login() {
     usuarioService
       .salvarConvidado()
       .then((response) => {
-        fazerLogin(response.data)
-        navigate("/home");
+        const convidado = response.data;
+
+        usuarioService
+          .autenticar({
+            email: convidado.email,
+            senha: convidado.senha,
+          })
+          .then((response) => {
+            fazerLogin(response.data);
+            navigate("/home");
+          })
+          .catch((error) => {
+            mensagemErro(error.response.data);
+          });
       })
       .catch((error) => {
         mensagemErro(error.response.data);
@@ -115,7 +127,7 @@ function Login() {
                         onClick={entrarConvidado}
                       >
                         <i className="pi pi-user"></i> Convidado
-                      </button> 
+                      </button>
                     </FormButtonGroup>
                   </fieldset>
                 </form>
