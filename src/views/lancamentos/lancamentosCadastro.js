@@ -40,11 +40,13 @@ function LancamentosCadastro() {
   const SalvaLancamento = () => {
     const usuarioLogado = Localstorege.findItem("usuario_logado");
 
+    let valor = Lancamento.valor
+
     const lancamentoAux = {
       id: null,
       idUsuario: usuarioLogado.id,
       descricao: Lancamento.descricao,
-      valor: Lancamento.valor,
+      valor: valor.replace(",","."),
       mes: Lancamento.mes,
       ano: Lancamento.ano,
       tipo: Lancamento.tipo,
@@ -67,11 +69,13 @@ function LancamentosCadastro() {
   const atualizaLancamento = () => {
     const usuarioLogado = Localstorege.findItem("usuario_logado");
 
+    let valor = Lancamento.valor
+
     const lancamentoAux = {
-      id: Lancamento.id,
+      id: null,
       idUsuario: usuarioLogado.id,
       descricao: Lancamento.descricao,
-      valor: Lancamento.valor,
+      valor: valor.replace(",","."),
       mes: Lancamento.mes,
       ano: Lancamento.ano,
       tipo: Lancamento.tipo,
