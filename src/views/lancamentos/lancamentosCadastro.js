@@ -69,10 +69,10 @@ function LancamentosCadastro() {
   const atualizaLancamento = () => {
     const usuarioLogado = Localstorege.findItem("usuario_logado");
 
-    let valor = Lancamento.valor
+    let valor = Lancamento.valor.toString();
 
     const lancamentoAux = {
-      id: null,
+      id: Lancamento.id,
       idUsuario: usuarioLogado.id,
       descricao: Lancamento.descricao,
       valor: valor.replace(",","."),
@@ -223,3 +223,4 @@ function LancamentosCadastro() {
 }
 
 export default LancamentosCadastro;
+
