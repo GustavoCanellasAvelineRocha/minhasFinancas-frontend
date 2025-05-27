@@ -4,10 +4,6 @@ Este projeto foi criado para continuar meu aprendizado fullstack. Como ja possui
 
 O site possui uma interface basica, entretanto, muito intuitiva e direta, para aqueles que desejam cadastrar e verificar seus gastos.
 
-Veja como ficou!
-
-https://minhas-financas-frontend-wheat.vercel.app/login
-
 e caso queira ver o desenvolvimento backend desse projeto, deixo abaixo o link para o git!
 
 https://github.com/GustavoCanellasAvelineRocha/minhasFinancas-backend
